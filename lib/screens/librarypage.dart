@@ -9,6 +9,8 @@ import 'package:check1/models/GraphModel.dart';
 import 'package:flutter_tex/flutter_tex.dart';
 import 'package:check1/services/firestore_services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:check1/screens/pdfpage.dart';
 
 class library_page extends StatefulWidget {
   library_page({Key? key}) : super(key: key);
@@ -168,7 +170,10 @@ class _library_pageState extends State<library_page> {
   Widget _buildExpandableFormulaTile(item) {
     return GestureDetector(
       onTap: () {
-        _launchURL(item.filepath);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => pdfpage(item.title, item.filepath)));
       },
       child: ListTile(
         title: Text(
@@ -178,11 +183,5 @@ class _library_pageState extends State<library_page> {
     );
   }
 
-  _launchURL(String link) async {
-    if (await canLaunch(link)) {
-      await launch(link);
-    } else {
-      throw 'Could not launch $link';
-    }
-  }
+  
 }

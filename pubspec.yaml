@@ -43,6 +43,7 @@ dependencies:
   hexcolor: ^2.0.5
   google_sign_in: 
   url_launcher: 
+  syncfusion_flutter_pdfviewer:
   
  
   
