@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 //Categories
@@ -27,13 +29,13 @@ class MathQuestion {
   late String instruction;
   late var Questions;
   MathQuestion({required this.category,required this.instruction,this.Questions});
-   factory MathQuestion.fromMap(var map,List<DocumentSnapshot> passage_snapshot){
-   String tp = map['category']??"";
-  return MathQuestion(
-    category:tp,
-    instruction: map['instruction']??"",
-    Questions: tp=="SOC"?SOC_Question.fromMap(map['questions']):tp=='MOC'?MOC_Question.fromMap(map['questions']):tp=='IT'?IT_Question.fromMap(map['questions']):
-    tp=='STATEMENT'?STATEMENT_Question.fromMap(map['questions']) :tp=='PB'?PB_Question.fromMap(map,passage_snapshot):null
+  factory MathQuestion.fromMap(var map,List<DocumentSnapshot> passage_snapshot){
+    String tp = map['category']??"";
+    return MathQuestion(
+        category:tp,
+        instruction: map['instruction']??"",
+        Questions: tp=="SOC"?SOC_Question.fromMap(map['questions']):tp=='MOC'?MOC_Question.fromMap(map['questions']):tp=='IT'?IT_Question.fromMap(map['questions']):
+        tp=='STATEMENT'?STATEMENT_Question.fromMap(map['questions']) :tp=='PB'?PB_Question.fromMap(map,passage_snapshot):null
 
     ) ;
   }
@@ -49,14 +51,21 @@ class SOC_Question{
 
   SOC_Question({required this.image,required this.solution_images,required this.title,required this.solution,required this.options,required this.answer});
   factory SOC_Question.fromMap(var map){
-    return SOC_Question(
-      title :map['title']??"",
-      image: map['question_image']??"",
-      solution: map['solution']??"",
-      options: List.castFrom(map['options']),
-      answer: map['answer']??-1,
-      solution_images:List.castFrom(map['solution_image']??[]),
-    );
+    try{
+      return SOC_Question(
+        title :map['title']??"",
+        image: map['question_image']??"",
+        solution: map['solution']??"",
+        options: List.castFrom(map['options']),
+        answer: map['answer']??-1,
+        solution_images:List.castFrom(map['solution_image']??[]),
+      );
+    }
+    catch(e){
+      print(e.toString());
+      print(map.toString());
+      return SOC_Question(image: "", solution_images: [], title: "", solution: "", options: [], answer: -1);
+    }
   }
 }
 class MOC_Question{
@@ -68,14 +77,21 @@ class MOC_Question{
   late List<int> answer;
   MOC_Question({required this.image,required this.solution_images,required this.title,required this.solution,required this.options,required this.answer});
   factory MOC_Question.fromMap(Map<String,dynamic> map){
-    return MOC_Question(
+    try{
+      return MOC_Question(
         title :map['title']??"",
         image: map['question_image']??"",
         solution: map['solution']??"",
-         options: List.castFrom(map['options']),
+        options: List.castFrom(map['options']),
         answer: List.castFrom(map['answer']),
-      solution_images:List.castFrom(map['solution_image']??[]),
-    ) ;
+        solution_images:List.castFrom(map['solution_image']??[]),
+      ) ;
+    }catch(e){
+      print(e.toString());
+      print(map.toString());
+      return  MOC_Question(image: "", solution_images: [], title: "", solution: "", options: [], answer: []);
+    }
+
   }
 }
 class PB_Question{
@@ -83,12 +99,11 @@ class PB_Question{
   late String tag;
   PB_Question({required this.sub_questions,required this.tag});
   factory PB_Question.fromMap(Map<String,dynamic> map,List<DocumentSnapshot> passage_snapshot){
-
     List question_ids = map['questions'].map((e)=>e.toString()).toList();
     return PB_Question(
       tag: map['tag']??"",
       sub_questions: (question_ids).map((e) => SOC_Question.fromMap(passage_snapshot.where((element) => element.id==e).toList()[0].data()as Map)).toList(),
-     ) ;
+    ) ;
   }
 }
 class STATEMENT_Question {
@@ -101,13 +116,21 @@ class STATEMENT_Question {
       {required this.image,required this.solution_images ,required this.title, required this.solution, required this.answer});
 
   factory STATEMENT_Question.fromMap(Map<String, dynamic> map){
-    return STATEMENT_Question(
+    try{
+      return STATEMENT_Question(
         title: map['title'] ?? "",
         image: map['question_image'] ?? "",
         solution: map['solution'] ?? "",
         answer: map['answer'] ?? -1,
-      solution_images:List.castFrom(map['solution_image']??[]),
-    );
+        solution_images:List.castFrom(map['solution_image']??[]),
+      );
+    }catch(e){
+      print(e.toString());
+      print(map.toString());
+      return STATEMENT_Question(image: "", solution_images: [], title: "", solution: "", answer: -1);
+
+    }
+
   }
 }
 class IT_Question{
@@ -118,13 +141,13 @@ class IT_Question{
   late int answer;
 
   IT_Question({required this.image,required this.solution_images,required this.title,required this.solution,required this.answer});
- factory IT_Question.fromMap(Map<String,dynamic> map){
+  factory IT_Question.fromMap(Map<String,dynamic> map){
     return IT_Question(
         title :map['title']??"",
         image: map['image']??"",
         solution_images:List.castFrom(map['solution_image']??[]),
         solution: map['solution']??"",
         answer: map['answer']??-1
-     ) ;
+    ) ;
   }
 }

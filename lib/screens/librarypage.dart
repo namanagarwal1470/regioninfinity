@@ -1,3 +1,4 @@
+import 'package:check1/models/mathformulamodel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toggle_bar/toggle_bar.dart';
@@ -7,6 +8,7 @@ import 'package:check1/models/allmodels.dart';
 import 'package:check1/models/GraphModel.dart';
 import 'package:flutter_tex/flutter_tex.dart';
 import 'package:check1/services/firestore_services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class library_page extends StatefulWidget {
   library_page({Key? key}) : super(key: key);
@@ -24,21 +26,25 @@ class _library_pageState extends State<library_page> {
   int currentIndex = 0;
   @override
   void initState() {
-    fetch_graphdata();
+    fetch_alldata();
     super.initState();
   }
 
-  void fetch_graphdata() async {
+  void fetch_alldata() async {
     List<GraphData> questions = await FirestoreServices().fetch_math_graphs();
+    List<FormulaData> formula = await FirestoreServices().fetch_formula_data();
 
     setState(() {
-      question_set = questions;
+      graph_set = questions;
+      formula_set = formula;
+
       isloading = false;
     });
   }
 
   bool isloading = true;
-  List<GraphData> question_set = [];
+  List<GraphData> graph_set = [];
+  List<FormulaData> formula_set = [];
 
   @override
   Widget build(BuildContext context) {
@@ -107,17 +113,7 @@ class _library_pageState extends State<library_page> {
                             SizedBox(
                               height: 20,
                             ),
-                            currentIndex == 0
-                                ? Expanded(
-                                    child: ListView.builder(
-                                        itemCount: question_set.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return _buildExpandableTile(
-                                              question_set[index]);
-                                        }),
-                                  )
-                                : Text("hello")
+                            currentIndex == 0 ? graphui() : formulaui()
                           ],
                         )))
               ],
@@ -125,7 +121,7 @@ class _library_pageState extends State<library_page> {
     );
   }
 
-  Widget _buildExpandableTile(item) {
+  Widget _buildExpandableGraphTile(item) {
     return ExpansionTile(
       title: Text(
         item.tag,
@@ -147,5 +143,46 @@ class _library_pageState extends State<library_page> {
         ),
       ],
     );
+  }
+
+  Widget graphui() {
+    return Expanded(
+      child: ListView.builder(
+          itemCount: graph_set.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _buildExpandableGraphTile(graph_set[index]);
+          }),
+    );
+  }
+
+  Widget formulaui() {
+    return Expanded(
+      child: ListView.builder(
+          itemCount: formula_set.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _buildExpandableFormulaTile(formula_set[index]);
+          }),
+    );
+  }
+
+  Widget _buildExpandableFormulaTile(item) {
+    return GestureDetector(
+      onTap: () {
+        _launchURL(item.filepath);
+      },
+      child: ListTile(
+        title: Text(
+          item.title,
+        ),
+      ),
+    );
+  }
+
+  _launchURL(String link) async {
+    if (await canLaunch(link)) {
+      await launch(link);
+    } else {
+      throw 'Could not launch $link';
+    }
   }
 }
