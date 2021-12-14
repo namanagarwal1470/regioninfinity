@@ -5,6 +5,7 @@ import 'package:check1/screens/topics.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_core/firebase_core.dart';
 import 'package:check1/screens/librarypage.dart';
+import 'package:check1/screens/onboard/splashscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,6 @@ class myapp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: homepage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: splash());
   }
 }

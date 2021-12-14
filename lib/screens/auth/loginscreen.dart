@@ -1,3 +1,4 @@
+import 'package:check1/screens/auth/register_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:check1/screens/auth/otpscreen.dart';
@@ -67,7 +68,7 @@ class _homepageState extends State<homepage> {
         setState(() {
           loggedIn = true;
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DashboardPage()));
+              MaterialPageRoute(builder: (context) => RegisterDetails()));
         });
       } else {}
     });
