@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RegionInfinity</string>
+    <string name="facebook_app_id">434550334828390</string>
+    <string name="fb_login_protocol_scheme">fb434550334828390</string>
+</resources>

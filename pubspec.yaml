@@ -44,6 +44,7 @@ dependencies:
   google_sign_in: 
   url_launcher: 
   syncfusion_flutter_pdfviewer:
+  flutter_facebook_auth: ^3.5.7
   
  
   

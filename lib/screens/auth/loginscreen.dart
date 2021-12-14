@@ -4,7 +4,7 @@ import 'package:check1/screens/auth/otpscreen.dart';
 import 'package:check1/widgets/loginscreenwidget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:check1/screens/dashboard.dart';
-//import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class homepage extends StatefulWidget {
   homepage({Key? key}) : super(key: key);
@@ -75,20 +75,20 @@ class _homepageState extends State<homepage> {
 
   Future<int> _handleSignIn(String type) async {
     switch (type) {
-      //case "FB":
-      //try {
-      //final LoginResult loginResult = await FacebookAuth.instance.login();
+      case "FB":
+      try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-      //final OAuthCredential facebookAuthCredential =
-      // FacebookAuthProvider.credential(loginResult.accessToken!.token);
-      //final user =
-      //await firebaseAuth.signInWithCredential(facebookAuthCredential);
+      final OAuthCredential facebookAuthCredential =
+       FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      final user =
+      await firebaseAuth.signInWithCredential(facebookAuthCredential);
 
-      //return 1;
-      //} catch (error) {
-      //return 0;
-      //}
-      //break;
+      return 1;
+      } catch (error) {
+      return 0;
+      }
+      break;
       case "G":
         try {
           final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
