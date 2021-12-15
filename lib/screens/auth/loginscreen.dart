@@ -1,6 +1,7 @@
 import 'package:check1/screens/auth/register_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:check1/services/auth_services.dart';
 import 'package:check1/screens/auth/otpscreen.dart';
 import 'package:check1/widgets/loginscreenwidget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -63,52 +64,14 @@ class _homepageState extends State<homepage> {
   }
 
   void initiateSignIn(String type) {
-    _handleSignIn(type).then((result) {
+    AuthService().SocialhandleSignIn(type).then((result) {
       if (result == 1) {
         setState(() {
           loggedIn = true;
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => RegisterDetails()));
+          AuthService().handle_signin(context);
         });
       } else {}
     });
-  }
-
-  Future<int> _handleSignIn(String type) async {
-    switch (type) {
-      case "FB":
-      try {
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-
-      final OAuthCredential facebookAuthCredential =
-       FacebookAuthProvider.credential(loginResult.accessToken!.token);
-      final user =
-      await firebaseAuth.signInWithCredential(facebookAuthCredential);
-
-      return 1;
-      } catch (error) {
-      return 0;
-      }
-      break;
-      case "G":
-        try {
-          final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-          final GoogleSignInAuthentication? googleAuth =
-              await googleUser?.authentication;
-
-          final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth?.accessToken,
-            idToken: googleAuth?.idToken,
-          );
-          final user = await firebaseAuth.signInWithCredential(credential);
-
-          return 1;
-        } catch (error) {
-          return 0;
-        }
-    }
-    return 0;
   }
 
   Widget socialloginbutton() {

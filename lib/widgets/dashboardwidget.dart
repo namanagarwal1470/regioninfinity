@@ -24,54 +24,152 @@ Widget draweritems(BuildContext context) {
               fontWeight: FontWeight.bold),
         )),
       ),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => profilePage()));
+        },
+        child: ListTile(
+          title: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: colortype().whitecolor),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.all(5),
+                    icon: Icon(FontAwesomeIcons.user),
+                    color: colortype().redcolor,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                'Profile',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
       ListTile(
         title: Row(
           children: [
-            Container(
-              margin: EdgeInsets.all(30),
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: colortype().whitecolor),
-              child: Center(
-                child: IconButton(
-                  padding: EdgeInsets.all(5),
-                  icon: Icon(FontAwesomeIcons.bell),
-                  color: colortype().redcolor,
-                  onPressed: () {},
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.all(10),
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: colortype().whitecolor),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.all(5),
+                    icon: Icon(FontAwesomeIcons.exclamationCircle),
+                    color: colortype().redcolor,
+                    onPressed: () {},
+                  ),
                 ),
               ),
             ),
             SizedBox(width: 5),
             Text(
-              'Profile',
+              'Privacy policies',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
       ),
       ListTile(
-        title: Text(
-          'Privacy Policies',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.all(10),
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: colortype().whitecolor),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.all(5),
+                    icon: Icon(FontAwesomeIcons.infoCircle),
+                    color: colortype().redcolor,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 5),
+            Text(
+              'About us',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
       ListTile(
-        title: Text(
-          'About Us',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.all(10),
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: colortype().whitecolor),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.all(5),
+                    icon: Icon(FontAwesomeIcons.users),
+                    color: colortype().redcolor,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 5),
+            Text(
+              'Contact us',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
       ListTile(
-        title: Text(
-          'Contact Us',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      ListTile(
-        title: Text(
-          'Rate Us',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.all(10),
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: colortype().whitecolor),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.all(5),
+                    icon: Icon(FontAwesomeIcons.star),
+                    color: colortype().redcolor,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 5),
+            Text(
+              'Rate us',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
       GestureDetector(
@@ -89,9 +187,29 @@ Widget draweritems(BuildContext context) {
               (Route<dynamic> route) => false);
         },
         child: ListTile(
-          title: Text(
-            'Log out',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: colortype().whitecolor),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.all(5),
+                    icon: Icon(FontAwesomeIcons.usersSlash),
+                    color: colortype().redcolor,
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                'Log out',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
       ),
