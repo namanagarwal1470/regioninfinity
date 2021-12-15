@@ -2,6 +2,7 @@
 import 'package:check1/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:check1/screens/auth/loginscreen.dart';
 
 class SharedPref{
   void add_user(UserModel user)async{
@@ -24,6 +25,21 @@ class SharedPref{
     String class_of_study = (await prefs.getString("class_of_study"))??'';
     String school = (await prefs.getString("school"))??'';
     return UserModel(name: name,email: email,phone: phone,class_of_study: class_of_study,school: school);
+  }
+
+  void removeuser(BuildContext context)async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("name");
+    prefs.remove("phone");
+    prefs.remove("email");
+    prefs.remove("class_of_study");
+    prefs.remove("school");
+
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => homepage()),
+            (Route<dynamic> route) => false);
+
   }
 }
 

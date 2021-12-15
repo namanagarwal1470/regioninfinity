@@ -1,4 +1,5 @@
 import 'package:check1/models/user_model.dart';
+import 'package:check1/services/sharedPref.dart';
 import 'package:flutter/material.dart';
 import 'package:check1/screens/topics.dart';
 import 'package:check1/screens/profile.dart';
@@ -7,6 +8,8 @@ import 'package:check1/screens/auth/loginscreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:check1/models/allmodels.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:check1/services/url_services.dart';
 
 Widget draweritems(BuildContext context) {
   return ListView(
@@ -147,7 +150,9 @@ Widget draweritems(BuildContext context) {
         title: Row(
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+               play_store();
+              },
               child: Container(
                 margin: EdgeInsets.all(10),
                 height: 30,
@@ -173,18 +178,8 @@ Widget draweritems(BuildContext context) {
         ),
       ),
       GestureDetector(
-        onTap: () async {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.remove("name");
-          prefs.remove("phone");
-          prefs.remove("email");
-          prefs.remove("classes");
-          prefs.remove("school");
-
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => homepage()),
-              (Route<dynamic> route) => false);
+        onTap: ()  {
+         SharedPref().removeuser(context);
         },
         child: ListTile(
           title: Row(
